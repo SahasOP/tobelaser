@@ -23,51 +23,64 @@
                 <h4>OBSERVATION TABLE</h4>
               </div>
               <div class="table mt-2">
+                <h6>
+                  Observation Table for He-Ne Laser Wavelength Calculation
+                </h6>
                 <table id="table">
-                  <!-- <tr>
-                    <th>Sr no.</th>
-                    <th>Voltage (V)</th>
-                    <th>Current(A)</th>
+                  <tr>
+                    <th>S.No</th>
+                    <th>L (cm)</th>
+                    <th>Order No. (n)</th>
+                    <th>R.H.S (cm)</th>
+                    <th>L.H.S (cm)</th>
+                    <th>Mean (D)</th>
+                    <th>Tan θ = D/L</th>
+                    <th>Sin θ</th>
+                    <th>λ = (a+b) (sin θ)/n (cm)</th>
                   </tr>
                   <tr>
-                    <td><input class="srno1" type="text" /></td>
-                    <td><input class="voltage1" type="text" /></td>
-                    <td><input class="curr1" type="text" /></td>
-                  </tr> -->
-                  <tr>
-                    <th>Sr No.</th>
-                    <th>L (in mm)</th>
-                    <th>r = D/2 (in mm)</th>
-                    <th>NA = <sup>r</sup>&frasl;<sub>√(L² + r²)</sub></th>
-                    <th>θ<sub>o</sub> = sin⁻¹(NA)</th>
+                    <td><input class="srno" type="text" /></td>
+                    <td><input class="length" type="text" /></td>
+                    <td><input class="order" type="text" /></td>
+                    <td><input class="rhs" type="text" /></td>
+                    <td><input class="lhs" type="text" /></td>
+                    <td><input class="mean" type="text" /></td>
+                    <td><input class="tan-theta" type="text" /></td>
+                    <td><input class="sin-theta" type="text" /></td>
+                    <td><input class="wavelength" type="text" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" disabled /></td>
-                    <td><input class="length" type="text" disabled /></td>
-                    <td><input class="radius" type="text" disabled /></td>
-                    <td><input class="na" type="text" disabled /></td>
-                    <td><input class="theta" type="text" disabled /></td>
+                    <td><input class="srno" type="text" /></td>
+                    <td><input class="length" type="text" /></td>
+                    <td><input class="order" type="text" /></td>
+                    <td><input class="rhs" type="text" /></td>
+                    <td><input class="lhs" type="text" /></td>
+                    <td><input class="mean" type="text" /></td>
+                    <td><input class="tan-theta" type="text" /></td>
+                    <td><input class="sin-theta" type="text" /></td>
+                    <td><input class="wavelength" type="text" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" disabled /></td>
-                    <td><input class="length" type="text" disabled /></td>
-                    <td><input class="radius" type="text" disabled /></td>
-                    <td><input class="na" type="text" disabled /></td>
-                    <td><input class="theta" type="text" disabled /></td>
+                    <td><input class="srno" type="text" /></td>
+                    <td><input class="length" type="text" /></td>
+                    <td><input class="order" type="text" /></td>
+                    <td><input class="rhs" type="text" /></td>
+                    <td><input class="lhs" type="text" /></td>
+                    <td><input class="mean" type="text" /></td>
+                    <td><input class="tan-theta" type="text" /></td>
+                    <td><input class="sin-theta" type="text" /></td>
+                    <td><input class="wavelength" type="text" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" disabled /></td>
-                    <td><input class="length" type="text" disabled /></td>
-                    <td><input class="radius" type="text" disabled /></td>
-                    <td><input class="na" type="text" disabled /></td>
-                    <td><input class="theta" type="text" disabled /></td>
-                  </tr>
-                  <tr>
-                    <td><input class="srno" type="text" disabled /></td>
-                    <td><input class="length" type="text" disabled /></td>
-                    <td><input class="radius" type="text" disabled /></td>
-                    <td><input class="na" type="text" disabled /></td>
-                    <td><input class="theta" type="text" disabled /></td>
+                    <td><input class="srno" type="text" /></td>
+                    <td><input class="length" type="text" /></td>
+                    <td><input class="order" type="text" /></td>
+                    <td><input class="rhs" type="text" /></td>
+                    <td><input class="lhs" type="text" /></td>
+                    <td><input class="mean" type="text" /></td>
+                    <td><input class="tan-theta" type="text" /></td>
+                    <td><input class="sin-theta" type="text" /></td>
+                    <td><input class="wavelength" type="text" /></td>
                   </tr>
                 </table>
               </div>
@@ -79,7 +92,7 @@
                 </div>
               </div>
               <!-- Controls -->
-              <div class="">
+              <!-- <div class="">
                 <div class="d-flex align-items-center">
                   <div class="form-label" for="range">
                     <strong>Length (L): </strong>
@@ -135,7 +148,24 @@
                     Clear
                   </button>
                 </div>
-              </div>
+              </div> -->
+              <div class="section-title">Calculation</div>
+              <p>N = 15000 lines/inch</p>
+              <p>(a + b) = <input type="text" /> cm</p>
+              <p>(a + b) = 1.6933 × 10⁻⁴ cm</p>
+              
+              <div class="section-title">Formula</div>
+              <p>λ = (a + b) * sin(θ) / n</p>
+              
+              <div class="section-title">Final Calculation</div>
+              <p>Tan θ = D / L = <input type="text" /></p>
+              <p>θ = tan⁻¹(Tan θ) = <input type="text" /></p>
+              <p>sin(θ) = <input type="text" /></p>
+              <p>λ = 6568.42 Å</p>
+              
+              <div class="section-title">Result</div>
+              <p>The wavelength of laser light is λ = <input type="text" /> cm.</p>
+            
             </div>
           </div>
           <div class="col-xs-12 col-lg-7 bt">
