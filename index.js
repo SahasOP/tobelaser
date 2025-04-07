@@ -374,6 +374,14 @@ const radiusValue = [
   1.625, 3.25, 4.875, 6.75, 8.625, 8, 9.125, 10.25, 11.375, 12.5,
 ];
 
+function calculateValues(L, n, D) {
+  const tanTheta = D / L;
+  const sinTheta = Math.sin(Math.atan(tanTheta));
+  const a_b = 1.6933e-4; // Given constant (a+b) value
+  const lambda = (a_b * sinTheta) / n;
+  return { tanTheta, sinTheta, lambda };
+}
+
 function rangeSelector() {
   newIndexinterval = setInterval(() => {
     let newIndex = sessionStorage.getItem("newIndex"); // Retrieve newIndex
@@ -387,84 +395,34 @@ function rangeSelector() {
 
     const isComplete = sessionStorage.getItem("circuitComplete");
     if (isComplete) {
-      // Update display with the newIndex
       updateDisplay(newIndex);
-
-      // updateValues(newIndex);
     }
 
     const testindex = newIndex * 2.5;
-    // Calculate values based on newIndex
-    const length = testindex; // Simple length calculation based on index
-    const radius = radiusValue[newIndex - 1]; // r = D/2 = 25/2 = 12.5 mm (from your table header)
+    const length = testindex;
+    const radius = radiusValue[newIndex - 1];
 
-    // Calculate Numerical Aperture (NA = r/√(L² + r²))
-    const numericalAperture =
-      radius / Math.sqrt(Math.pow(length, 2) + Math.pow(radius, 2));
+    const { tanTheta, sinTheta, lambda } = calculateValues(length, newIndex, radius);
 
-    // Calculate acceptance angle in degrees (θₒ = sin⁻¹(NA))
-    const acceptanceAngle = Math.asin(numericalAperture) * (180 / Math.PI);
-
-    sessionStorage.setItem("rowData", JSON.stringify(rowData));
-
-    // Store optical values in sessionStorage
     sessionStorage.setItem("length", length.toFixed(1));
     sessionStorage.setItem("radius", radius.toFixed(2));
-    sessionStorage.setItem("na", numericalAperture.toFixed(5));
-    sessionStorage.setItem("theta", acceptanceAngle.toFixed(5));
-
-    // document.getElementById("sliderValue").textContent = length.toFixed(1);
-    // document.getElementById("lengthDisplay").textContent = length.toFixed(1);
-    // document.getElementById("radiusDisplay").textContent = radius.toFixed(2);
-    // document.getElementById("naDisplay").textContent = numericalAperture.toFixed(5);
-    // document.getElementById("thetaDisplay").textContent = acceptanceAngle.toFixed(4);
-
-    // Calculate Diameters
-    const D1 = (2 * radius).toFixed(2);
-    const D2 = (2 * radius).toFixed(2);
-    const Dmean = ((parseFloat(D1) + parseFloat(D2)) / 2).toFixed(2);
-    const r = (Dmean / 2).toFixed(2);
-
-    // Function to safely update element text content
-    const updateTextContent = (id, value) => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = value;
-      }
-    };
-
-    // Update SVG elements only if they exist
-    updateTextContent("d1text", D1);
-    updateTextContent("d2text", D2);
-    updateTextContent("dmeantext", Dmean);
-    updateTextContent("rtext", r);
-
-    const lengthElement = document.getElementById("lengthonsvg");
-    if (lengthElement && lengthElement.firstChild) {
-      lengthElement.firstChild.nodeValue = `L = ${length.toFixed(1)}`;
-    }
+    sessionStorage.setItem("tanTheta", tanTheta.toFixed(5));
+    sessionStorage.setItem("sinTheta", sinTheta.toFixed(5));
+    sessionStorage.setItem("lambda", lambda.toExponential(6));
 
     document.getElementById("sliderValue").textContent = length.toFixed(1);
-    // document.getElementById("lengthDisplay").textContent = length.toFixed(1);
     document.getElementById("radiusDisplay").textContent = radius.toFixed(2);
-
-    document.getElementById("naDisplay").textContent =
-      numericalAperture.toFixed(5);
-    document.getElementById("thetaDisplay").textContent =
-      acceptanceAngle.toFixed(5);
-    const naNumerator = radius; // Define naNumerator
-    document.getElementById("naFormula").textContent = `${naNumerator.toFixed(
-      2
-    )} / √(${length.toFixed(2)}² + ${radius.toFixed(2)}²)`;
-    document.getElementById("thetaFormula").textContent =
-      numericalAperture.toFixed(5);
+    document.getElementById("tanThetaDisplay").textContent = tanTheta.toFixed(5);
+    document.getElementById("sinThetaDisplay").textContent = sinTheta.toFixed(5);
+    document.getElementById("lambdaDisplay").textContent = lambda.toExponential(6);
   }, 500);
 }
+
 
 // function rangeSelector() {
 //   newIndexinterval = setInterval(() => {
 //     let newIndex = sessionStorage.getItem("newIndex"); // Retrieve newIndex
-//     newIndex = Math.floor(newIndex / 5); // Map to range [1, 10]
+//     newIndex = Math.floor(newIndex / 2.5); // Map to range [1, 10]
 
 //     // Ensure newIndex stays within bounds of the array
 //     if (newIndex < 1 || newIndex > 10) {
@@ -476,38 +434,78 @@ function rangeSelector() {
 //     if (isComplete) {
 //       // Update display with the newIndex
 //       updateDisplay(newIndex);
+
+//       // updateValues(newIndex);
 //     }
 
-//     // Given fixed values from the images
-//     const testindex = newIndex * 10;
+//     const testindex = newIndex * 2.5;
 //     // Calculate values based on newIndex
-//     const length = testindex * 10; // Simple length calculation based on index
-//     const radius = 12.5; // r = 8 mm
+//     const length = testindex; // Simple length calculation based on index
+//     const radius = radiusValue[newIndex - 1]; // r = D/2 = 25/2 = 12.5 mm (from your table header)
 
-//     // Calculate Numerical Aperture (NA)
+//     // Calculate Numerical Aperture (NA = r/√(L² + r²))
 //     const numericalAperture =
 //       radius / Math.sqrt(Math.pow(length, 2) + Math.pow(radius, 2));
 
 //     // Calculate acceptance angle in degrees (θₒ = sin⁻¹(NA))
 //     const acceptanceAngle = Math.asin(numericalAperture) * (180 / Math.PI);
 
+//     sessionStorage.setItem("rowData", JSON.stringify(rowData));
+
 //     // Store optical values in sessionStorage
 //     sessionStorage.setItem("length", length.toFixed(1));
-//     sessionStorage.setItem("radius", radius.toFixed(1));
-//     sessionStorage.setItem("na", numericalAperture.toFixed(6)); // More precision for NA
-//     sessionStorage.setItem("theta", acceptanceAngle.toFixed(4)); // More precision for angle
+//     sessionStorage.setItem("radius", radius.toFixed(2));
+//     sessionStorage.setItem("na", numericalAperture.toFixed(5));
+//     sessionStorage.setItem("theta", acceptanceAngle.toFixed(5));
 
-//     console.log("Values updated:", {
-//       srNo: newIndex,
-//       length: length.toFixed(1),
-//       radius: radius.toFixed(1),
-//       na: numericalAperture.toFixed(6),
-//       angle: acceptanceAngle.toFixed(4),
-//     });
+//     // document.getElementById("sliderValue").textContent = length.toFixed(1);
+//     // document.getElementById("lengthDisplay").textContent = length.toFixed(1);
+//     // document.getElementById("radiusDisplay").textContent = radius.toFixed(2);
+//     // document.getElementById("naDisplay").textContent = numericalAperture.toFixed(5);
+//     // document.getElementById("thetaDisplay").textContent = acceptanceAngle.toFixed(4);
+
+//     // Calculate Diameters
+//     const D1 = (2 * radius).toFixed(2);
+//     const D2 = (2 * radius).toFixed(2);
+//     const Dmean = ((parseFloat(D1) + parseFloat(D2)) / 2).toFixed(2);
+//     const r = (Dmean / 2).toFixed(2);
+
+//     // Function to safely update element text content
+//     const updateTextContent = (id, value) => {
+//       const element = document.getElementById(id);
+//       if (element) {
+//         element.textContent = value;
+//       }
+//     };
+
+//     // Update SVG elements only if they exist
+//     updateTextContent("d1text", D1);
+//     updateTextContent("d2text", D2);
+//     updateTextContent("dmeantext", Dmean);
+//     updateTextContent("rtext", r);
+
+//     const lengthElement = document.getElementById("lengthonsvg");
+//     if (lengthElement && lengthElement.firstChild) {
+//       lengthElement.firstChild.nodeValue = `L = ${length.toFixed(1)}`;
+//     }
+
+//     document.getElementById("sliderValue").textContent = length.toFixed(1);
+//     // document.getElementById("lengthDisplay").textContent = length.toFixed(1);
+//     document.getElementById("radiusDisplay").textContent = radius.toFixed(2);
+
+//     document.getElementById("naDisplay").textContent =
+//       numericalAperture.toFixed(5);
+//     document.getElementById("thetaDisplay").textContent =
+//       acceptanceAngle.toFixed(5);
+//     const naNumerator = radius; // Define naNumerator
+//     document.getElementById("naFormula").textContent = `${naNumerator.toFixed(
+//       2
+//     )} / √(${length.toFixed(2)}² + ${radius.toFixed(2)}²)`;
+//     document.getElementById("thetaFormula").textContent =
+//       numericalAperture.toFixed(5);
 //   }, 500);
 // }
 
-// Helper function in case you need random values like in your original code
 function getRndInteger(min, max) {
   return Math.random() * (max - min) + min;
 }
