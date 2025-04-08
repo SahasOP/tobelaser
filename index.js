@@ -132,7 +132,8 @@ function keyPut() {
 }
 
 function replacement() {
-  // document.getElementById("black-board").classList.add("hidden");
+  document.getElementById("black-board").classList.add("hidden");
+  document.getElementById("options").style.setProperty("display", "none", "important");
   document.getElementById("table-board").classList.add("replacement");
 
   const paperElem = document.getElementById(`paper`);
