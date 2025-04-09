@@ -26,63 +26,106 @@
                 <h6>
                   Observation Table for He-Ne Laser Wavelength Calculation
                 </h6>
+                <!-- <style>
+                  table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    text-align: center;
+                  }
+                  th, td {
+                    padding: 6px;
+                  }
+                  input {
+                    border: none;
+                    width: 100%;
+                    text-align: center;
+                    background: transparent;
+                  }
+                </style> -->
+                
                 <table id="table">
                   <tr>
-                    <th>S.No</th>
-                    <th>L (cm)</th>
-                    <th>Order No. (n)</th>
+                    <th rowspan="2">S.No</th>
+                    <th rowspan="2">L (cm)</th>
+                    <th rowspan="2">Order No.<div>(n)</div></th>
+                    <th colspan="2">Reading</th>
+                    <th rowspan="2">Mean (D)</th>
+                    <th rowspan="2">Tan θ =<div>D / L</div></th>
+                    <th rowspan="2">Sin θ</th>
+                    <th rowspan="2">λ = <br>(a+b)(sinθ)<br>/n (cm)</th>
+                  </tr>
+                  <tr>
                     <th>R.H.S (cm)</th>
                     <th>L.H.S (cm)</th>
-                    <th>Mean (D)</th>
-                    <th>Tan θ = D/L</th>
-                    <th>Sin θ</th>
-                    <th>λ = (a+b) (sin θ)/n (cm)</th>
+                  </tr>
+                
+                  <!-- First S.No (2 rows with rowspan) -->
+                  <tr>
+                    <td rowspan="2"><input class="srno" type="text" readonly value="1" /></td>
+                    <td rowspan="2"><input class="length" type="text" readonly value="19" /></td>
+                    <td><input class="order" type="text" readonly value="n=1" /></td>
+                    <td><input class="rhs" type="text" readonly value="8" /></td>
+                    <td><input class="lhs" type="text" readonly value="8" /></td>
+                    <td><input class="mean" type="text" readonly value="8" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="0.42" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.358" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.0056842" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" /></td>
-                    <td><input class="length" type="text" /></td>
-                    <td><input class="order" type="text" /></td>
-                    <td><input class="rhs" type="text" /></td>
-                    <td><input class="lhs" type="text" /></td>
-                    <td><input class="mean" type="text" /></td>
-                    <td><input class="tan-theta" type="text" /></td>
-                    <td><input class="sin-theta" type="text" /></td>
-                    <td><input class="wavelength" type="text" /></td>
+                    <td><input class="order" type="text" readonly value="n=2" /></td>
+                    <td><input class="rhs" type="text" readonly value="22.5" /></td>
+                    <td><input class="lhs" type="text" readonly value="22.5" /></td>
+                    <td><input class="mean" type="text" readonly value="11.24" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="0.59" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.56" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.0064648" /></td>
+                  </tr>
+                
+                  <!-- Second S.No -->
+                  <tr>
+                    <td rowspan="2"><input class="srno" type="text" readonly value="2" /></td>
+                    <td rowspan="2"><input class="length" type="text" readonly value="20" /></td>
+                    <td><input class="order" type="text" readonly value="n=1" /></td>
+                    <td><input class="rhs" type="text" readonly value="8.5" /></td>
+                    <td><input class="lhs" type="text" readonly value="8.5" /></td>
+                    <td><input class="mean" type="text" readonly value="8.5" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="0.425" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.397" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.0064415" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" /></td>
-                    <td><input class="length" type="text" /></td>
-                    <td><input class="order" type="text" /></td>
-                    <td><input class="rhs" type="text" /></td>
-                    <td><input class="lhs" type="text" /></td>
-                    <td><input class="mean" type="text" /></td>
-                    <td><input class="tan-theta" type="text" /></td>
-                    <td><input class="sin-theta" type="text" /></td>
-                    <td><input class="wavelength" type="text" /></td>
+                    <td><input class="order" type="text" readonly value="n=2" /></td>
+                    <td><input class="rhs" type="text" readonly value="24.5" /></td>
+                    <td><input class="lhs" type="text" readonly value="24.9" /></td>
+                    <td><input class="mean" type="text" readonly value="24.7" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="0.742" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.675" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.0065531" /></td>
+                  </tr>
+                
+                  <!-- Third S.No -->
+                  <tr>
+                    <td rowspan="2"><input class="srno" type="text" readonly value="3" /></td>
+                    <td rowspan="2"><input class="length" type="text" readonly value="22.5" /></td>
+                    <td><input class="order" type="text" readonly value="n=1" /></td>
+                    <td><input class="rhs" type="text" readonly value="9.9" /></td>
+                    <td><input class="lhs" type="text" readonly value="9.7" /></td>
+                    <td><input class="mean" type="text" readonly value="9.8" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="0.435" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.4014" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.0065796" /></td>
                   </tr>
                   <tr>
-                    <td><input class="srno" type="text" /></td>
-                    <td><input class="length" type="text" /></td>
-                    <td><input class="order" type="text" /></td>
-                    <td><input class="rhs" type="text" /></td>
-                    <td><input class="lhs" type="text" /></td>
-                    <td><input class="mean" type="text" /></td>
-                    <td><input class="tan-theta" type="text" /></td>
-                    <td><input class="sin-theta" type="text" /></td>
-                    <td><input class="wavelength" type="text" /></td>
-                  </tr>
-                  <tr>
-                    <td><input class="srno" type="text" /></td>
-                    <td><input class="length" type="text" /></td>
-                    <td><input class="order" type="text" /></td>
-                    <td><input class="rhs" type="text" /></td>
-                    <td><input class="lhs" type="text" /></td>
-                    <td><input class="mean" type="text" /></td>
-                    <td><input class="tan-theta" type="text" /></td>
-                    <td><input class="sin-theta" type="text" /></td>
-                    <td><input class="wavelength" type="text" /></td>
+                    <td><input class="order" type="text" readonly value="n=2" /></td>
+                    <td><input class="rhs" type="text" readonly value="28" /></td>
+                    <td><input class="lhs" type="text" readonly value="27.7" /></td>
+                    <td><input class="mean" type="text" readonly value="27.85" /></td>
+                    <td><input class="tan-theta" type="text" readonly value="1.237" /></td>
+                    <td><input class="sin-theta" type="text" readonly value="0.7788" /></td>
+                    <td><input class="wavelength" type="text" readonly value="0.00006583" /></td>
                   </tr>
                 </table>
+                
               </div>
 
               <!-- Moved the calculation part below the tables -->
@@ -153,19 +196,20 @@
               <p>N = 15000 lines/inch</p>
               <p>(a + b) = <input type="text" /> cm</p>
               <p>(a + b) = 1.6933 × 10⁻⁴ cm</p>
-              
+
               <div class="section-title">Formula</div>
               <p>λ = (a + b) * sin(θ) / n</p>
-              
+
               <div class="section-title">Final Calculation</div>
               <p>Tan θ = D / L = <input type="text" /></p>
               <p>θ = tan⁻¹(Tan θ) = <input type="text" /></p>
               <p>sin(θ) = <input type="text" /></p>
               <p>λ = 6568.42 Å</p>
-              
+
               <div class="section-title">Result</div>
-              <p>The wavelength of laser light is λ = <input type="text" /> cm.</p>
-            
+              <p>
+                The wavelength of laser light is λ = <input type="text" /> cm.
+              </p>
             </div>
           </div>
           <div class="col-xs-12 col-lg-7 bt">

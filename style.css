@@ -118,18 +118,36 @@ table {
   text-align: center;
   margin: 0 0.5%;
 }
+#table {
+  width: 100%;
+  /* border-collapse: collapse; */
+  /* table-layout: fixed; */
+}
+#table th, #table td {
+  /* border: 1px solid #ccc; */
+  /* padding: 8px; */
+  text-align: center;
+  word-wrap: break-word;
+  user-select: none;
+  pointer-events: none;
+  
+}
 th,
 td {
   padding: 4px;
   text-align: center;
-  font-size: 12px;
+  font-size: 9px;
   word-wrap: break-word;
   white-space: nowrap;
-  max-width: 60px;
+  max-width: 52px;
+  height: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+input{
+  
+  border: 0;
+}
 th {
   background-color: #212529;
   color: #fff;
