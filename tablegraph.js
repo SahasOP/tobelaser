@@ -104,37 +104,64 @@ range.addEventListener("input", (event) => {
     const newIndex = event.target.value;
     sessionStorage.setItem("newIndex", newIndex);
   } else {
-    document.getElementById("range").value = 5;
+    document.getElementById("sliderValue").textContent = 19;
+    document.getElementById("range").value = 0;
     alert("Complete the circuit first");
   }
 });
 let rowCountIndex = 0;
 
 document.getElementById("addtable").addEventListener("click", addTable);
-let idx;
+
 function addTable() {
   if (sessionStorage.getItem("circuitComplete") === "true") {
-    srno = document.getElementsByClassName(`srno`)[rowCountIndex];
-    length = document.getElementsByClassName(`length`)[rowCountIndex];
-    radius = document.getElementsByClassName(`radius`)[rowCountIndex];
-    na = document.getElementsByClassName(`na`)[rowCountIndex];
-    theta = document.getElementsByClassName(`theta`)[rowCountIndex];
+    const srnos = document.getElementsByClassName("srno");
+    const lengths = document.getElementsByClassName("length");
+    const orders = document.getElementsByClassName("order");
+    const rhs = document.getElementsByClassName("rhs");
+    const lhs = document.getElementsByClassName("lhs");
+    const means = document.getElementsByClassName("mean");
+    const tanThetas = document.getElementsByClassName("tan-theta");
+    const sinThetas = document.getElementsByClassName("sin-theta");
+    const lambdas = document.getElementsByClassName("wavelength");
 
-    let lengthval = sessionStorage.getItem("length");
-    let radiusval = sessionStorage.getItem("radius");
-    let naval = sessionStorage.getItem("na");
-    let thetaval = sessionStorage.getItem("theta");
+    const lengthval = sessionStorage.getItem("length");
+    const d1 = sessionStorage.getItem("d1");
+    const d2 = sessionStorage.getItem("d2");
+    const tanTheta1 = sessionStorage.getItem("tanTheta1");
+    const sinTheta1 = sessionStorage.getItem("sinTheta1");
+    const lambda1 = sessionStorage.getItem("lambda1");
+    const tanTheta2 = sessionStorage.getItem("tanTheta2");
+    const sinTheta2 = sessionStorage.getItem("sinTheta2");
+    const lambda2 = sessionStorage.getItem("lambda2");
 
-    srno.value = rowCountIndex + 1;
-    length.value = lengthval;
-    radius.value = radiusval;
-    na.value = naval;
-    theta.value = thetaval;
+    // First Row (n=1)
+    let i = rowCountIndex * 2;
+    srnos[rowCountIndex].value = rowCountIndex + 1;
+    lengths[rowCountIndex].value = lengthval;
+    orders[i].value = 1;
+    rhs[i].value = (parseFloat(d1)).toFixed(5);
+    lhs[i].value = (parseFloat(d1)).toFixed(5);
+    means[i].value = parseFloat(d1).toFixed(5);
+    tanThetas[i].value = tanTheta1;
+    sinThetas[i].value = sinTheta1;
+    lambdas[i].value = (parseFloat(lambda1)).toFixed(8);
+
+    // Second Row (n=2)
+    orders[i + 1].value = 2;
+    rhs[i + 1].value = (parseFloat(d2)).toFixed(5);
+    lhs[i + 1].value = (parseFloat(d2)).toFixed(5);
+    means[i + 1].value = parseFloat(d2).toFixed(5);
+    tanThetas[i + 1].value = tanTheta2;
+    sinThetas[i + 1].value = sinTheta2;
+    lambdas[i + 1].value = (parseFloat(lambda2)).toFixed(8);
+
     rowCountIndex++;
   } else {
     alert("Complete the circuit first");
   }
 }
+
 document.getElementById('clear').addEventListener('click', function() {
   // Get all input fields with the classes we want to clear
   const srnoInputs = document.querySelectorAll('input.srno');

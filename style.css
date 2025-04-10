@@ -43,6 +43,11 @@ div object {
   }
 }
 
+.ab{
+  width: 40px;
+  border: 1px solid #000;
+}
+
 #supercapacitor-head,
 #disKey {
   fill: #fff;

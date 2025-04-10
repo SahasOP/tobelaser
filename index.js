@@ -12,6 +12,7 @@ wireTerminalCheck = [
   { two: false, six: false },
 ];
 
+
 terminalMap = {
   0: "one",
   1: "two",
@@ -131,9 +132,22 @@ function keyPut() {
   document.getElementById("keyBase1").onclick = function () {};
 }
 
+const labelMap = {
+  0: "19",
+  1: "20",
+  2: "22.5",
+};
+
+function updateInputDisplay(val) {
+  document.getElementById("sliderValue").textContent = labelMap[val];
+  console.log("Internal value:", val); // Use this for backend or logic (0, 1, 2)
+}
+
 function replacement() {
   document.getElementById("black-board").classList.add("hidden");
-  document.getElementById("options").style.setProperty("display", "none", "important");
+  document
+    .getElementById("options")
+    .style.setProperty("display", "none", "important");
   document.getElementById("table-board").classList.add("replacement");
 
   const paperElem = document.getElementById(`paper`);
@@ -160,11 +174,13 @@ function replacement() {
   //   keyPut();
   // };
   sessionStorage.setItem("circuitComplete", true);
+  document.getElementById("calculation").style.display = "inline";
   sessionStorage.setItem("fullScreen", true);
 
-  sessionStorage.setItem("newIndex", 2.5);
+  sessionStorage.setItem("newIndex", 0);
 
-  updateDisplay(1);
+  updateDisplay(0);
+  updateInputDisplay(0);
 }
 
 function getRndInteger(min, max) {
@@ -310,7 +326,7 @@ function updateDisplay(value) {
 
   // Hide all elements
   hideAllElements();
-
+  // alert(value)
   // Show elements corresponding to the current value
   showElements(value);
 }
@@ -326,99 +342,161 @@ function updateDisplay(value) {
 
 function hideAllElements() {
   // Hide all wire paths
-  for (let i = 1; i <= 9; i += 1) {
-    // alert("hi");
-    const wireElement = document.getElementById(`wire1${i}`);
-    const laserElement = document.getElementById(`laserlight${i}`);
-    const spotElement = document.getElementById(`laserlightonpaper${i}`);
-    const dottedElement = document.getElementById(`dottedline${i}`);
-    const arrowElement = document.getElementById(`arrow${i}`);
-    // alert(arrowElement);
+  for (let i = 1; i <= 3; i += 1) {
+    const wireElement = document.getElementById(`arr${i}`);
     if (wireElement) wireElement.style.display = "none";
-    if (laserElement) laserElement.style.display = "none";
-    if (spotElement) spotElement.style.display = "none";
-    if (dottedElement) dottedElement.style.display = "none";
-    if (arrowElement) arrowElement.style.display = "none";
-    // alert("hi");
   }
 }
 // updateDisplay(slider.value);
 function showElements(value) {
   // Show elements matching the current value
-  const wireElement = document.getElementById(`wire1${value}`);
-  const laserElement = document.getElementById(`laserlight${value}`);
-  const spotElement = document.getElementById(`laserlightonpaper${value}`);
-  const dottedElement = document.getElementById(`dottedline${value}`);
-  const arrowElement = document.getElementById(`arrow${value}`);
-  // alert("hi");
+  value++;
+  const wireElement = document.getElementById(`arr${value}`);
   if (wireElement) wireElement.style.display = "block";
-  if (laserElement) laserElement.style.display = "block";
-  if (spotElement) spotElement.style.display = "block";
-  if (dottedElement) dottedElement.style.display = "inline";
-  if (arrowElement) arrowElement.style.display = "inline";
 }
 
 // slider.addEventListener("input", function () {
 //   updateDisplay(this.value);
 // });
-const sliderValueElement = document.getElementById("sliderValue");
-function updateValues(value) {
-  if (sliderValueElement) {
-    sliderValueElement.textContent = sessionStorage.getItem("newIndex");
-  } else {
-    alert("sliderValue element not found");
-  }
-}
+// const sliderValueElement = document.getElementById("sliderValue");
+// function updateValues(value) {
+//   if (sliderValueElement) {
+//     sliderValueElement.textContent = sessionStorage.getItem("newIndex");
+//   } else {
+//     alert("sliderValue element not found");
+//   }
+// }
 
 // const radiusValue = [3.25, 6.75, 8, 10.25, 12.5, 14.75, 17, 19.25, 21.5, 23.75];
 const radiusValue = [
   1.625, 3.25, 4.875, 6.75, 8.625, 8, 9.125, 10.25, 11.375, 12.5,
 ];
 
-function calculateValues(L, n, D) {
-  const tanTheta = D / L;
-  const sinTheta = Math.sin(Math.atan(tanTheta));
-  const a_b = 1.6933e-4; // Given constant (a+b) value
-  const lambda = (a_b * sinTheta) / n;
-  return { tanTheta, sinTheta, lambda };
-}
+const data = [
+  {
+    SNo: 1,
+    L: 19,
+    readings: [
+      {
+        n: 1,
+        rhs: 8,
+        lhs: 8,
+      },
+      {
+        n: 2,
+        rhs: 22.5,
+        lhs: 22.5,
+      },
+    ],
+    D1: 8,
+    D2: 22.5,
+  },
+  {
+    SNo: 2,
+    L: 20,
+    readings: [
+      {
+        n: 1,
+        rhs: 8.5,
+        lhs: 8.5,
+      },
+      {
+        n: 2,
+        rhs: 24.5,
+        lhs: 24.9,
+      },
+    ],
+    D1: 8.5,
+    D2: 27.7,
+  },
+  {
+    SNo: 3,
+    L: 22.5,
+    readings: [
+      {
+        n: 1,
+        rhs: 9.9,
+        lhs: 9.7,
+      },
+      {
+        n: 2,
+        rhs: 28,
+        lhs: 27.7,
+      },
+    ],
+    D1: 9.8,
+    D2: 27.85,
+  },
+];
 
 function rangeSelector() {
   newIndexinterval = setInterval(() => {
     let newIndex = sessionStorage.getItem("newIndex"); // Retrieve newIndex
-    newIndex = Math.floor(newIndex / 2.5); // Map to range [1, 10]
+    // newIndex = Math.floor(newIndex / 2.5); // Map to range [1, 10]
 
     // Ensure newIndex stays within bounds of the array
-    if (newIndex < 1 || newIndex > 10) {
+    if (newIndex < 0 || newIndex > 10) {
       console.error("newIndex out of range");
       return; // Skip this iteration if out of bounds
     }
-
     const isComplete = sessionStorage.getItem("circuitComplete");
     if (isComplete) {
+      // alert(newIndex);
       updateDisplay(newIndex);
     }
 
-    const testindex = newIndex * 2.5;
-    const length = testindex;
-    const radius = radiusValue[newIndex - 1];
+    const length = labelMap[newIndex];
+    const d1 = data[newIndex].D1;
+    const d2 = data[newIndex].D2;
+    // alert(newIndex);
+    // alert(length);
+    // alert(d1);
 
-    const { tanTheta, sinTheta, lambda } = calculateValues(length, newIndex, radius);
+    const a_b = 1.6933e-4;
+    const tanTheta1 = d1 / length;
 
-    sessionStorage.setItem("length", length.toFixed(1));
-    sessionStorage.setItem("radius", radius.toFixed(2));
-    sessionStorage.setItem("tanTheta", tanTheta.toFixed(5));
-    sessionStorage.setItem("sinTheta", sinTheta.toFixed(5));
-    sessionStorage.setItem("lambda", lambda.toExponential(6));
+    // If you need theta in degrees rather than radians
+    const thetaInDegrees1 = Math.atan(tanTheta1) * (180 / Math.PI);
+    // alert(tanTheta);
+    const sinTheta1 = Math.sin(Math.atan(tanTheta1));
+    const lambda1 = a_b * sinTheta1;
+    
+    const tanTheta2 = d2 / length;
+    const thetaInDegrees2 = Math.atan(tanTheta2) * (180 / Math.PI);
+    // alert(tanTheta);
+    const sinTheta2 = Math.sin(Math.atan(tanTheta2));
+    const lambda2 = (a_b * sinTheta2) / 2;
+    // console.log(tanTheta, sinTheta, lambda);
 
-    document.getElementById("sliderValue").textContent = length.toFixed(1);
-    document.getElementById("radiusDisplay").textContent = radius.toFixed(2);
-    document.getElementById("tanThetaDisplay").textContent = tanTheta.toFixed(5);
-    document.getElementById("sinThetaDisplay").textContent = sinTheta.toFixed(5);
-    document.getElementById("lambdaDisplay").textContent = lambda.toExponential(6);
+    console.log(tanTheta1, lambda1);
+    sessionStorage.setItem("length", length);
+    sessionStorage.setItem("d1", d1);
+    sessionStorage.setItem("d2", d2);
+    sessionStorage.setItem("tanTheta1", tanTheta1.toFixed(5));
+    sessionStorage.setItem("sinTheta1", sinTheta1.toFixed(5));
+    sessionStorage.setItem("lambda1", lambda1.toFixed(9));
+    sessionStorage.setItem("tanTheta2", tanTheta2.toFixed(5));
+    sessionStorage.setItem("sinTheta2", sinTheta2.toFixed(5));
+    sessionStorage.setItem("lambda2", lambda2.toFixed(8));
+
+    // document.getElementById("sliderValue").textContent = length.toFixed(1);
+    document.getElementById("diameter1").textContent = d1.toFixed(5);
+    document.getElementById("tanTheta1").textContent = tanTheta1.toFixed(5);
+    document.getElementById("thetaDegree1").textContent =
+      thetaInDegrees1.toFixed(2);
+    document.getElementById("sinTheta1").textContent = sinTheta1.toFixed(5);
+    document.getElementById("wavelengthAngstrom1").textContent =
+      lambda1.toFixed(8);
+
+    document.getElementById("diameter2").textContent = d2.toFixed(5);
+    document.getElementById("tanTheta2").textContent = tanTheta2.toFixed(5);
+    document.getElementById("thetaDegree2").textContent =
+      thetaInDegrees2.toFixed(2);
+    document.getElementById("sinTheta2").textContent = sinTheta2.toFixed(5);
+    document.getElementById("wavelengthAngstrom2").textContent =
+      lambda2.toFixed(8);
   }, 500);
 }
-
 
 // function rangeSelector() {
 //   newIndexinterval = setInterval(() => {
