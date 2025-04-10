@@ -163,12 +163,19 @@ function addTable() {
 }
 
 document.getElementById('clear').addEventListener('click', function() {
-  // Get all input fields with the classes we want to clear
+  // Get all input fields with the classes we want to clear, including those used in addTable
   const srnoInputs = document.querySelectorAll('input.srno');
   const lengthInputs = document.querySelectorAll('input.length');
   const radiusInputs = document.querySelectorAll('input.radius');
   const naInputs = document.querySelectorAll('input.na');
   const thetaInputs = document.querySelectorAll('input.theta');
+  const orderInputs = document.querySelectorAll('input.order');
+  const rhsInputs = document.querySelectorAll('input.rhs');
+  const lhsInputs = document.querySelectorAll('input.lhs');
+  const meanInputs = document.querySelectorAll('input.mean');
+  const tanThetaInputs = document.querySelectorAll('input.tan-theta');
+  const sinThetaInputs = document.querySelectorAll('input.sin-theta');
+  const lambdaInputs = document.querySelectorAll('input.wavelength');
   
   // Clear the value of each input
   srnoInputs.forEach(input => input.value = '');
@@ -176,9 +183,29 @@ document.getElementById('clear').addEventListener('click', function() {
   radiusInputs.forEach(input => input.value = '');
   naInputs.forEach(input => input.value = '');
   thetaInputs.forEach(input => input.value = '');
+  orderInputs.forEach(input => input.value = '');
+  rhsInputs.forEach(input => input.value = '');
+  lhsInputs.forEach(input => input.value = '');
+  meanInputs.forEach(input => input.value = '');
+  tanThetaInputs.forEach(input => input.value = '');
+  sinThetaInputs.forEach(input => input.value = '');
+  lambdaInputs.forEach(input => input.value = '');
   
-  console.log('Table values cleared');
-  rowCountIndex=0;
+  // Clear any relevant sessionStorage keys that affect addTable function
+  sessionStorage.removeItem("length");
+  sessionStorage.removeItem("d1");
+  sessionStorage.removeItem("d2");
+  sessionStorage.removeItem("tanTheta1");
+  sessionStorage.removeItem("sinTheta1");
+  sessionStorage.removeItem("lambda1");
+  sessionStorage.removeItem("tanTheta2");
+  sessionStorage.removeItem("sinTheta2");
+  sessionStorage.removeItem("lambda2");
+
+  // Reset rowCountIndex
+  rowCountIndex = 0;
+  
+  console.log('Table values and session storage cleared');
 });
 
 document.querySelectorAll(".dropdown-item").forEach((item) => {
