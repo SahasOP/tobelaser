@@ -104,7 +104,7 @@ range.addEventListener("input", (event) => {
     const newIndex = event.target.value;
     sessionStorage.setItem("newIndex", newIndex);
   } else {
-    document.getElementById("sliderValue").textContent = 19;
+    document.getElementById("sliderValue").textContent = 5;
     document.getElementById("range").value = 0;
     alert("Complete the circuit first");
   }
@@ -130,7 +130,7 @@ function addTable() {
     const d2 = sessionStorage.getItem("d2");
     const tanTheta1 = sessionStorage.getItem("tanTheta1");
     const sinTheta1 = sessionStorage.getItem("sinTheta1");
-    const lambda1 = sessionStorage.getItem("lambda1");
+    const lambda1 = sessionStorage.getItem("lambda1") ;
     const tanTheta2 = sessionStorage.getItem("tanTheta2");
     const sinTheta2 = sessionStorage.getItem("sinTheta2");
     const lambda2 = sessionStorage.getItem("lambda2");
@@ -140,21 +140,21 @@ function addTable() {
     srnos[rowCountIndex].value = rowCountIndex + 1;
     lengths[rowCountIndex].value = lengthval;
     orders[i].value = 1;
-    rhs[i].value = (parseFloat(d1)).toFixed(5);
-    lhs[i].value = (parseFloat(d1)).toFixed(5);
-    means[i].value = parseFloat(d1).toFixed(5);
+    rhs[i].value = (parseFloat(d1)).toFixed(1);
+    lhs[i].value = (parseFloat(d1)).toFixed(1);
+    means[i].value = parseFloat(d1).toFixed(1);
     tanThetas[i].value = tanTheta1;
     sinThetas[i].value = sinTheta1;
-    lambdas[i].value = (parseFloat(lambda1)).toFixed(8);
+    lambdas[i].value = (parseFloat(lambda1) * 100000000).toFixed(0); // Convert to cm
 
     // Second Row (n=2)
     orders[i + 1].value = 2;
-    rhs[i + 1].value = (parseFloat(d2)).toFixed(5);
-    lhs[i + 1].value = (parseFloat(d2)).toFixed(5);
-    means[i + 1].value = parseFloat(d2).toFixed(5);
+    rhs[i + 1].value = (parseFloat(d2)).toFixed(1);
+    lhs[i + 1].value = (parseFloat(d2)).toFixed(1);
+    means[i + 1].value = parseFloat(d2).toFixed(1);
     tanThetas[i + 1].value = tanTheta2;
     sinThetas[i + 1].value = sinTheta2;
-    lambdas[i + 1].value = (parseFloat(lambda2)).toFixed(8);
+    lambdas[i + 1].value = (parseFloat(lambda2) * 100000000).toFixed(0); // Convert to cm
 
     rowCountIndex++;
   } else {

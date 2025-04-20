@@ -44,7 +44,6 @@ sessionStorage.setItem("theta", 0);
 var btnPressed = [false, false];
 
 setTimeout(() => {
-  // if (document.querySelector(".forward")) {
   wireTerminalCheck = [
     { one: false, resistor: false },
     { eight: false, four: false },
@@ -52,66 +51,61 @@ setTimeout(() => {
     { six: false, two: false },
     { nine: false, seven: false },
     { eleven: false, ten: false },
-
     // { seven: false, five: false },
     // { eight: false, resistor: false },
     // { resistor: false, six: false },
   ];
-  // } else {
-  //   wireTerminalCheck = [
-  //     { one: false, resistor: false },
-  //     { resistor: false, seven: false },
-  //     { eight: false, four: false },
-  //     { five: false, three: false },
-  //     { seven: false, five: false },
-  //     { eight: false, resistor: false },
-  //     { resistor: false, six: false },
-  //     { two: false, six: false },
-  //   ];
-  // }
   enablingSequence(sequenceNum);
 }, 2000);
 
 function enablingSequence(sequenceNum) {
   sessionStorage.setItem("circuitComplete", false);
-  if (document.querySelector(".forward")) {
-    sessionStorage.setItem("type", false);
-  } else {
-    sessionStorage.setItem("type", true);
-  }
-
+  console.log(sequenceNum, 'sequenceNum')
+  console.log(wireTerminalCheck[sequenceNum], 'wireTerminalCheck')
   if (sequenceNum <= wireTerminalCheck.length) {
     for (var key in wireTerminalCheck[sequenceNum]) {
       elem = document.getElementsByClassName(key)[0];
-      elem.style.stroke = "#FFFF00";
-      elem.style.animationName = "pulse";
-      elem.style.opacity = "1";
+      if (elem) {
+        elem.style.stroke = "#FFFF00";
+        elem.style.animationName = "pulse";
+        elem.style.opacity = "1";
+      } else {
+        console.warn(`Element with class name '${key}' not found.`);
+      }
     }
   }
 }
 
 function trial(componentSom) {
   componentSomMap = terminalMap[componentSom];
-  for (var key in wireTerminalCheck[sequenceNum])
+  console.log(`Looking for element with class: ${componentSomMap}`); // Debugging log
+
+  for (var key in wireTerminalCheck[sequenceNum]) {
     if (key == componentSomMap) wireTerminalCheck[sequenceNum][key] = true;
+  }
 
   elem = document.getElementsByClassName(componentSomMap)[0];
-  elem.style.animationName = "none";
-  elem.style.stroke = "none";
-  // console.log(checkPair())
+  if (elem) {
+    elem.style.animationName = "none";
+    elem.style.stroke = "none";
+  } else {
+    console.warn(`Element with class name '${componentSomMap}' not found.`);
+  }
+
   dum = checkPair(sequenceNum);
-  // console.log(dum)
   if (dum) {
     wireName = "wire" + (sequenceNum + 1);
-    document.getElementById(wireName).style.transition = "display 10s";
-    document.getElementById(wireName).style.display = "block";
+    const wireElem = document.getElementById(wireName);
+    if (wireElem) {
+      wireElem.style.transition = "display 10s";
+      wireElem.style.display = "block";
+    } else {
+      console.warn(`Element with ID '${wireName}' not found.`);
+    }
     ++sequenceNum;
     if (sequenceNum < wireTerminalCheck.length) {
       enablingSequence(sequenceNum);
-      // console.log('here')
     } else {
-      // console.log('here')
-      // alert("Circuit completed");
       replacement();
     }
   }
@@ -128,30 +122,30 @@ function checkPair(sequenceNum) {
 
 function keyPut() {
   document.getElementById("key1").style.animation = "none";
-  document.getElementById("key1").onclick = function () {};
-  document.getElementById("keyBase1").onclick = function () {};
+  document.getElementById("key1").onclick = function () { };
+  document.getElementById("keyBase1").onclick = function () { };
 }
 
-const labelMap = {
-  0: "19",
-  1: "20",
-  2: "22.5",
-};
-
-function updateInputDisplay(val) {
-  document.getElementById("sliderValue").textContent = labelMap[val];
-  console.log("Internal value:", val); // Use this for backend or logic (0, 1, 2)
-}
 
 function replacement() {
-  document.getElementById("black-board").classList.add("hidden");
+  document.getElementById("black-board").style.setProperty("display", "none", "important");
   document
     .getElementById("options")
     .style.setProperty("display", "none", "important");
   document.getElementById("table-board").classList.add("replacement");
 
+
   const paperElem = document.getElementById(`paper`);
-  if (paperElem) paperElem.style.display = "inline";
+  if (paperElem) {
+    paperElem.style.display = "inline";
+    paperElem.setAttribute("transform", "translate(-20, -50) scale(1.2, 1.3)"); // Adjusted transform
+  }
+
+  const laserElem = document.getElementById(`g15-2`);
+  if (laserElem) {
+    laserElem.style.display = "inline";
+    laserElem.setAttribute("transform", "matrix(-1,0,0,1,198.32815,-24.146446) translate(-40, -20) scale(1.2, 1)"); // Adjusted transform
+  }
   const wireElement = document.getElementById(`laserfromthelaser`);
   if (wireElement) wireElement.style.display = "inline";
   const splitwireElement = document.getElementById(`splitedlasers`);
@@ -174,13 +168,12 @@ function replacement() {
   //   keyPut();
   // };
   sessionStorage.setItem("circuitComplete", true);
-  document.getElementById("calculation").style.display = "inline";
+  // document.getElementById("calculation").style.display = "inline";
   sessionStorage.setItem("fullScreen", true);
 
-  sessionStorage.setItem("newIndex", 0);
-
+  sessionStorage.setItem("newIndex", 5);
+  rangeSelector();
   updateDisplay(0);
-  updateInputDisplay(0);
 }
 
 function getRndInteger(min, max) {
@@ -290,35 +283,6 @@ setTimeout(() => {
   rangeSelector();
 }, 100);
 
-// const voltarr = [0.1, 0.2, 0.3, 0.4, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75];
-// const curarrforward = [0, 0, 0, 0, 0.4, 0.7, 2.3, 5.5, 15.8, 18, 18.9];
-
-// function rangeSelector() {
-//   newIndexinterval = setInterval(() => {
-//     let newIndex = sessionStorage.getItem("newIndex"); // Retrieve newIndex
-//     newIndex = Math.floor(newIndex / 10); // Map to range [1, 10]
-
-//     // Ensure newIndex stays within bounds of the array
-//     if (newIndex < 1 || newIndex > 10) {
-//       console.error("newIndex out of range");
-//       return; // Skip this iteration if out of bounds
-//     }
-
-//     let volttext = document.getElementById("volt");
-//     let currtext = document.getElementById("curr");
-
-//     volttext.textContent = voltarr[newIndex - 1]; // Adjust for 0-based index
-//     let curr = 0;
-//       curr = Math.abs(curarrforward[newIndex - 1] - getRndInteger(0.01, 0.03));
-//       currtext.textContent = curr.toFixed(2);
-//     let currcopy = curr.toFixed(2);
-
-//     sessionStorage.setItem("current", curarrforward[0]);
-//     sessionStorage.setItem("voltage", voltarr[0]);
-
-//     // alert("Data recorded in the Table and Graph will be plotted.", currcopy , voltarr[newIndex - 1]);
-//   }, 500);
-// }
 
 function updateDisplay(value) {
   // Update slider value display
@@ -342,16 +306,14 @@ function updateDisplay(value) {
 
 function hideAllElements() {
   // Hide all wire paths
-  for (let i = 1; i <= 3; i += 1) {
+  for (let i = 1; i <= 10; i += 1) {
     const wireElement = document.getElementById(`arr${i}`);
     if (wireElement) wireElement.style.display = "none";
   }
 }
 // updateDisplay(slider.value);
 function showElements(value) {
-  // Show elements matching the current value
-  value++;
-  const wireElement = document.getElementById(`arr${value}`);
+  const wireElement = document.getElementById(`arr${value + 1}`);
   if (wireElement) wireElement.style.display = "block";
 }
 
@@ -373,60 +335,16 @@ const radiusValue = [
 ];
 
 const data = [
-  {
-    SNo: 1,
-    L: 19,
-    readings: [
-      {
-        n: 1,
-        rhs: 8,
-        lhs: 8,
-      },
-      {
-        n: 2,
-        rhs: 22.5,
-        lhs: 22.5,
-      },
-    ],
-    D1: 8,
-    D2: 22.5,
-  },
-  {
-    SNo: 2,
-    L: 20,
-    readings: [
-      {
-        n: 1,
-        rhs: 8.5,
-        lhs: 8.5,
-      },
-      {
-        n: 2,
-        rhs: 24.5,
-        lhs: 24.9,
-      },
-    ],
-    D1: 8.5,
-    D2: 27.7,
-  },
-  {
-    SNo: 3,
-    L: 22.5,
-    readings: [
-      {
-        n: 1,
-        rhs: 9.9,
-        lhs: 9.7,
-      },
-      {
-        n: 2,
-        rhs: 28,
-        lhs: 27.7,
-      },
-    ],
-    D1: 9.8,
-    D2: 27.85,
-  },
+  { SNo: 1, L: 5, readings: [{ n: 1, rhs: 2.0, lhs: 2.2 }, { n: 2, rhs: 5.9, lhs: 5.9 }], D1: 2.1, D2: 5.9 },
+  { SNo: 2, L: 6, readings: [{ n: 1, rhs: 2.5, lhs: 2.5 }, { n: 2, rhs: 7.2, lhs: 7.0 }], D1: 2.5, D2: 7.1 },
+  { SNo: 3, L: 7, readings: [{ n: 1, rhs: 2.9, lhs: 2.9 }, { n: 2, rhs: 8.3, lhs: 8.3 }], D1: 2.9, D2: 8.3 },
+  { SNo: 4, L: 8, readings: [{ n: 1, rhs: 3.3, lhs: 3.5 }, { n: 2, rhs: 9.5, lhs: 9.5 }], D1: 3.4, D2: 9.5 },
+  { SNo: 5, L: 9, readings: [{ n: 1, rhs: 3.8, lhs: 3.8 }, { n: 2, rhs: 10.6, lhs: 10.8 }], D1: 3.8, D2: 10.7 },
+  { SNo: 6, L: 10, readings: [{ n: 1, rhs: 4.2, lhs: 4.2 }, { n: 2, rhs: 11.9, lhs: 11.9 }], D1: 4.2, D2: 11.9 },
+  { SNo: 7, L: 11, readings: [{ n: 1, rhs: 4.6, lhs: 4.6 }, { n: 2, rhs: 13.1, lhs: 13.1 }], D1: 4.6, D2: 13.1 },
+  { SNo: 8, L: 12, readings: [{ n: 1, rhs: 5.1, lhs: 5.0 }, { n: 2, rhs: 14.3, lhs: 14.3 }], D1: 5.05, D2: 14.3 },
+  { SNo: 9, L: 13, readings: [{ n: 1, rhs: 5.5, lhs: 5.5 }, { n: 2, rhs: 15.5, lhs: 15.5 }], D1: 5.5, D2: 15.5 },
+  { SNo: 10, L: 14, readings: [{ n: 1, rhs: 5.9, lhs: 5.9 }, { n: 2, rhs: 16.7, lhs: 16.7 }], D1: 5.9, D2: 16.7 },
 ];
 
 function rangeSelector() {
@@ -435,19 +353,18 @@ function rangeSelector() {
     // newIndex = Math.floor(newIndex / 2.5); // Map to range [1, 10]
 
     // Ensure newIndex stays within bounds of the array
-    if (newIndex < 0 || newIndex > 10) {
+    if (newIndex < 0 || newIndex > 15) {
       console.error("newIndex out of range");
       return; // Skip this iteration if out of bounds
     }
     const isComplete = sessionStorage.getItem("circuitComplete");
-    if (isComplete) {
-      // alert(newIndex);
-      updateDisplay(newIndex);
+    if (isComplete && newIndex > 0) {
+      updateDisplay(newIndex - 5);
     }
 
-    const length = labelMap[newIndex];
-    const d1 = data[newIndex].D1;
-    const d2 = data[newIndex].D2;
+    const length = newIndex > 0 ? data[newIndex - 5].L : 0;
+    const d1 = newIndex > 0 ? data[newIndex - 5].D1 : 0;
+    const d2 = newIndex > 0 ? data[newIndex - 5].D2 : 0;
     // alert(newIndex);
     // alert(length);
     // alert(d1);
@@ -460,7 +377,7 @@ function rangeSelector() {
     // alert(tanTheta);
     const sinTheta1 = Math.sin(Math.atan(tanTheta1));
     const lambda1 = a_b * sinTheta1;
-    
+
     const tanTheta2 = d2 / length;
     const thetaInDegrees2 = Math.atan(tanTheta2) * (180 / Math.PI);
     // alert(tanTheta);
@@ -478,23 +395,26 @@ function rangeSelector() {
     sessionStorage.setItem("tanTheta2", tanTheta2.toFixed(5));
     sessionStorage.setItem("sinTheta2", sinTheta2.toFixed(5));
     sessionStorage.setItem("lambda2", lambda2.toFixed(8));
+    if (length)
+      document.getElementById("sliderValue").textContent = length;
+    const updateElementText = (id, value) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.textContent = value;
+      }
+    };
 
-    // document.getElementById("sliderValue").textContent = length.toFixed(1);
-    document.getElementById("diameter1").textContent = d1.toFixed(5);
-    document.getElementById("tanTheta1").textContent = tanTheta1.toFixed(5);
-    document.getElementById("thetaDegree1").textContent =
-      thetaInDegrees1.toFixed(2);
-    document.getElementById("sinTheta1").textContent = sinTheta1.toFixed(5);
-    document.getElementById("wavelengthAngstrom1").textContent =
-      lambda1.toFixed(8);
+    updateElementText("diameter1", d1.toFixed(5));
+    updateElementText("tanTheta1", tanTheta1.toFixed(5));
+    updateElementText("thetaDegree1", thetaInDegrees1.toFixed(2));
+    updateElementText("sinTheta1", sinTheta1.toFixed(5));
+    updateElementText("wavelengthAngstrom1", lambda1.toFixed(8));
 
-    document.getElementById("diameter2").textContent = d2.toFixed(5);
-    document.getElementById("tanTheta2").textContent = tanTheta2.toFixed(5);
-    document.getElementById("thetaDegree2").textContent =
-      thetaInDegrees2.toFixed(2);
-    document.getElementById("sinTheta2").textContent = sinTheta2.toFixed(5);
-    document.getElementById("wavelengthAngstrom2").textContent =
-      lambda2.toFixed(8);
+    updateElementText("diameter2", d2.toFixed(5));
+    updateElementText("tanTheta2", tanTheta2.toFixed(5));
+    updateElementText("thetaDegree2", thetaInDegrees2.toFixed(2));
+    updateElementText("sinTheta2", sinTheta2.toFixed(5));
+    updateElementText("wavelengthAngstrom2", lambda2.toFixed(8));
   }, 500);
 }
 

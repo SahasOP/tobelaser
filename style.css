@@ -117,7 +117,6 @@ form {
 table {
   /* width: 50%; */
   width: 80%;
-  max-width: 100px;
   table-layout: auto; /* Allow columns to adjust automatically */
   border-collapse: collapse;
   text-align: center;
@@ -141,7 +140,7 @@ th,
 td {
   padding: 4px;
   text-align: center;
-  font-size: 9px;
+  font-size: 12px;
   word-wrap: break-word;
   white-space: nowrap;
   max-width: 52px;
@@ -218,7 +217,7 @@ td,
 
 tr {
   height: 5%;
-  font-size: 1vw;
+  font-size: vw;
 }
 
 .graph {
@@ -265,7 +264,7 @@ tr {
 }
 
 .one {
-  transform-origin: -800px -80px;
+  transform-origin: -1200px -50px;
 }
 
 .two {
@@ -279,18 +278,18 @@ tr {
 }
 
 .four {
-  transform-origin: -1062px -12px;
+  transform-origin: -1500px 0px;
 }
 
 .five {
-  transform-origin: -1350px -32px;
+  transform-origin: -1500px -82px;
 }
 
 .six {
   transform-origin: -1100px -85px;
 }
 .seven {
-  transform-origin: -1393px -85px;
+  transform-origin: -793px -205px;
 }
 .eight {
   transform-origin: -540px -350px;
@@ -302,7 +301,7 @@ tr {
   transform-origin: -550px 220px;
 }
 .eleven {
-  transform-origin: -1394px 45px;
+  transform-origin: -794px -75px;
 }
 .resistor {
   transform-origin: 680px -600px;
@@ -439,3 +438,37 @@ tr {
   }
 }
 
+/* Target all internal borders in the header with high specificity */
+#table thead tr th,
+#table thead tr th[colspan="2"],
+table.table thead tr th,
+table.table thead tr th[colspan="2"] {
+  border-bottom: 0 !important;
+  border-top: 0 !important;
+}
+
+/* Force remove any border between Reading and its subcells */
+#table thead tr:first-child th[colspan="2"],
+table.table thead tr:first-child th[colspan="2"] {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Target second row headers */
+#table thead tr:nth-child(2) th,
+table.table thead tr:nth-child(2) th {
+  border-top: 0 !important;
+}
+
+/* Add a higher z-index to the top headers to hide any lines */
+#table thead tr:first-child th,
+table.table thead tr:first-child th {
+  position: relative;
+  z-index: 2;
+}
+
+/* Make sure borders don't show through */
+#table thead,
+table.table thead {
+  border-collapse: collapse;
+}

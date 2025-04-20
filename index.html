@@ -45,11 +45,11 @@
 
                 <table id="table">
                   <tr>
-                    <th rowspan="2">S.No</th>
-                    <th rowspan="2">L (cm)</th>
-                    <th rowspan="2">
-                      Order No.
-                      <div>(n)</div>
+                    <th rowspan="2" style="width: 50px">S.No</th>
+                    <th rowspan="2" style="width: 50px">L (cm)</th>
+                    <th rowspan="2" style="width: 50px">
+                      Order
+                      <div>No. (n)</div>
                     </th>
                     <th colspan="2">Reading</th>
                     <th rowspan="2">Mean (D)</th>
@@ -58,7 +58,7 @@
                       <div>D / L</div>
                     </th>
                     <th rowspan="2">Sin θ</th>
-                    <th rowspan="2">λ = <br />(a+b)(sinθ)<br />/n (cm)</th>
+                    <th rowspan="2">λ (Å)</th>
                   </tr>
                   <tr>
                     <th>R.H.S (cm)</th>
@@ -230,90 +230,183 @@
               </div>
 
               <!-- Moved the calculation part below the tables -->
-              <div id="calculation">
+              <div
+                id="calculation"
+                style="
+                  padding: 10px;
+                  background-color: #f9f9f9;
+                  border-radius: 10px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                "
+              >
                 <div class="mt-3">
-                  <div class="tablehead obs spc text-center">
-                    <h4>CALCULATION</h4>
+                  <div
+                    class="tablehead obs spc text-center"
+                    style="margin-bottom: 10px"
+                  >
+                    <h4 style="font-weight: bold">CALCULATION</h4>
                   </div>
                 </div>
                 <!-- Controls -->
-                <div class="">
-                  <div class="flex">
-                    <div>N = 15000 lines/inch</div>
-                    <div style="display: flex; align-items: center; gap: 50px">
+                <div style="margin-bottom: 10px">
+                  <div
+                    class="flex"
+                    style="display: flex; flex-direction: column; gap: 15px"
+                  >
+                    <div style="font-size: 16px">N = 15000 lines/inch</div>
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 50px;
+                        font-size: 16px;
+                      "
+                    >
                       <div>
                         (a + b) =
-                        <input type="text" class="ab" value="2.54" /> / n cm
+                        <div
+                          style="
+                            display: inline-block;
+                            text-align: center;
+                            vertical-align: middle;
+                          "
+                        >
+                          <div>2.54</div>
+                          <hr style="margin: 0; border: 1px solid #333" />
+                          <div>N</div>
+                        </div>
                       </div>
                       <div>(a + b) = 1.6933 × 10⁻⁴ cm</div>
                     </div>
-                    <div class="d-flex align-items-center">
-                      <div class="form-label" for="range">
-                        <strong>L: </strong>
+                    <div
+                      class="d-flex align-items-center"
+                      style="display: flex; align-items: center; gap: 10px"
+                    >
+                      <div
+                        class="form-label"
+                        for="range"
+                        style="font-weight: bold; color: #333; width: 250px;"
+                      >
+                        <strong>L (Distance between diffraction grating and screen) : </strong>
                       </div>
-                      <div id="sliderValue" class="mx-1 my-2">19</div>
+                      <div
+                        id="sliderValue"
+                        class="mx-1 my-2"
+                        style="font-size: 16px"
+                      >
+                        5
+                      </div>
                       mm
                       <input
                         type="range"
                         id="range"
                         class="form-range my-2 w-50 mx-2"
-                        min="0"
-                        max="2"
+                        min="5"
+                        max="14"
                         step="1"
-                        value="0"
-                        oninput="updateInputDisplay(this.value)"
+                        value="5"
+                        style="width: 200px"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div class="section-title"><strong>Formula</strong></div>
-                <div>λ = (a + b) × sin(θ) / n</div>
-                <div><strong>For n = 1,</strong></div>
-                <strong>Diameter(Mean) = </strong><span id="diameter1">--</span>
-                <div style="display: flex; gap: 1rem; align-items: center">
-                  <div>
+                <div
+                  class="section-title"
+                  style="
+                    font-weight: bold;
+                    font-size: 18px;
+                    color: #333;
+                    margin-bottom: 0px;
+                  "
+                >
+                  <strong>Formula</strong>
+                </div>
+                <div style="font-size: 16px; margin-bottom: 20px">
+                  λ =
+                  <div
+                    style="
+                      display: inline-block;
+                      text-align: center;
+                      vertical-align: middle;
+                    "
+                  >
+                    <div>(a + b) × sin(θ)</div>
+                    <hr style="margin: 0; border: 1px solid #333" />
+                    <div>n</div>
+                  </div>
+                </div>
+                <div style="font-size: 16px; margin-bottom: 0px">
+                  <strong>For n = 1,</strong>
+                </div>
+                <strong style="font-size: 16px">D1(Mean) = </strong
+                ><span id="diameter1" style="font-size: 16px">--</span>
+                <div
+                  style="
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                    margin-bottom: 10px;
+                  "
+                >
+                  <div style="font-size: 16px">
                     <strong>tan θ =</strong> <span id="tanTheta1">--</span>
                   </div>
-                  <div>
+                  <div style="font-size: 16px">
                     <strong>θ =</strong> tan⁻¹(tan θ) =
                     <span id="thetaDegree1">--</span>
                   </div>
-                  <div>
+                  <div style="font-size: 16px">
                     <strong>sin(θ) =</strong> <span id="sinTheta1">--</span>
                   </div>
                 </div>
 
-                <!-- <div><strong>Result:</strong><br /></div> -->
-                <div>
-                  <strong>λ =</strong>
+                <div style="font-size: 16px; margin-bottom: 0px">
+                  <strong>λ1(in cm) =</strong>
                   <span id="wavelengthAngstrom1">6568.42 Å</span>
                 </div>
-                <div><strong>For n = 2,</strong></div>
-                <strong>Diameter(Mean) = </strong><span id="diameter2">--</span>
-                <div style="display: flex; gap: 1rem; align-items: center">
-                  <div>
+                <div style="font-size: 16px; margin-bottom: 0px">
+                  <strong>For n = 2,</strong>
+                </div>
+                <strong style="font-size: 16px">D2(Mean) = </strong
+                ><span id="diameter2" style="font-size: 16px">--</span>
+                <div
+                  style="
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <div style="font-size: 16px">
                     <strong>tan θ =</strong> <span id="tanTheta2">--</span>
                   </div>
-                  <div>
+                  <div style="font-size: 16px">
                     <strong>θ =</strong> tan⁻¹(tan θ) =
                     <span id="thetaDegree2">--</span>
                   </div>
-                  <div>
+                  <div style="font-size: 16px">
                     <strong>sin(θ) =</strong> <span id="sinTheta2">--</span>
                   </div>
                 </div>
 
-                <!-- <div><strong>Result:</strong><br /></div> -->
-                <div>
-                  <strong>λ =</strong>
+                <div style="font-size: 16px; margin-bottom: 10px">
+                  <strong>λ2(in cm) =</strong>
                   <span id="wavelengthAngstrom2">6568.42 Å</span>
                 </div>
-                <div class="d-flex align-items-center justify-content-between">
+                <div
+                  class="d-flex align-items-center justify-content-between"
+                  style="display: flex; gap: 10px"
+                >
                   <button
                     type="button"
                     id="addtable"
                     class="btn btn-outline-primary"
+                    style="
+                      padding: 10px 20px;
+                      font-size: 14px;
+                      border-radius: 5px;
+                    "
                   >
                     ADD To Table
                   </button>
@@ -321,6 +414,11 @@
                     type="button"
                     class="btn btn-outline-primary mx-2"
                     id="download"
+                    style="
+                      padding: 10px 20px;
+                      font-size: 14px;
+                      border-radius: 5px;
+                    "
                   >
                     Download
                   </button>
@@ -328,6 +426,11 @@
                     type="button"
                     class="btn btn-outline-primary"
                     id="clear"
+                    style="
+                      padding: 10px 20px;
+                      font-size: 14px;
+                      border-radius: 5px;
+                    "
                   >
                     Clear
                   </button>
@@ -342,7 +445,7 @@
                   type="image/svg+xml"
                   class="ml-4"
                   id="main-svg"
-                  data="./assets/tobeopticalfiber.svg"
+                  data="./assets/fiberfinal.svg"
                 ></object>
                 <div id="snackbar" class="instruct1"></div>
                 <input
@@ -356,10 +459,10 @@
         </div>
       </div>
     </form>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
