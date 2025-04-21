@@ -144,7 +144,7 @@ function replacement() {
   const laserElem = document.getElementById(`g15-2`);
   if (laserElem) {
     laserElem.style.display = "inline";
-    laserElem.setAttribute("transform", "matrix(-1,0,0,1,198.32815,-24.146446) translate(-40, -20) scale(1.2, 1)"); // Adjusted transform
+    laserElem.setAttribute("transform", "matrix(-1,0,0,1,168.32815,-24.146446) translate(-40, -20) scale(1.2, 1)"); // Adjusted transform
   }
   const wireElement = document.getElementById(`laserfromthelaser`);
   if (wireElement) wireElement.style.display = "inline";
