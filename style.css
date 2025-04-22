@@ -437,38 +437,3 @@ tr {
     margin-left: 35%;
   }
 }
-
-/* Target all internal borders in the header with high specificity */
-#table thead tr th,
-#table thead tr th[colspan="2"],
-table.table thead tr th,
-table.table thead tr th[colspan="2"] {
-  border-bottom: 0 !important;
-  border-top: 0 !important;
-}
-
-/* Force remove any border between Reading and its subcells */
-#table thead tr:first-child th[colspan="2"],
-table.table thead tr:first-child th[colspan="2"] {
-  border-bottom: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Target second row headers */
-#table thead tr:nth-child(2) th,
-table.table thead tr:nth-child(2) th {
-  border-top: 0 !important;
-}
-
-/* Add a higher z-index to the top headers to hide any lines */
-#table thead tr:first-child th,
-table.table thead tr:first-child th {
-  position: relative;
-  z-index: 2;
-}
-
-/* Make sure borders don't show through */
-#table thead,
-table.table thead {
-  border-collapse: collapse;
-}
